@@ -12,8 +12,9 @@ CHROMA_PATH = "chroma_db"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def build_rag_chain():
+    
+    # Loads the vectorstore from ChomaDB
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-
     vectorstore = Chroma(
         persist_directory=CHROMA_PATH,
         embedding_function=embeddings
