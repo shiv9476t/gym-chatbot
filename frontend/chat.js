@@ -111,7 +111,7 @@
     } finally {
       isLoading = false;
       sendBtn.disabled = false;
-      input.focus();
+      setTimeout(() => input.focus(), 100);
     }
   }
 
