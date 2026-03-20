@@ -111,7 +111,10 @@
     } finally {
       isLoading = false;
       sendBtn.disabled = false;
-      setTimeout(() => input.focus(), 100);
+      const isMobile = window.innerWidth <= 480;
+      if (!isMobile) {
+        input.focus();
+      }
     }
   }
 
