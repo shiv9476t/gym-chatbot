@@ -1,5 +1,5 @@
 (function () {
-  const CHAT_API_URL = "https://your-actual-railway-url.railway.app/chat";
+  const CHAT_API_URL = "https://web-production-74dd.up.railway.app";
 
   // --- Inject HTML ---
   const container = document.createElement("div");
