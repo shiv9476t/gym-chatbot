@@ -63,12 +63,14 @@
     isOpen = !isOpen;
     chatWindow.classList.toggle("pf-hidden", !isOpen);
     bubble.style.display = isOpen ? "none" : "flex";
+    document.body.style.overflow = isOpen ? "hidden" : "";
   });
 
   closeBtn.addEventListener("click", () => {
     isOpen = false;
     chatWindow.classList.add("pf-hidden");
     bubble.style.display = "flex";
+    document.body.style.overflow = "";
   });
 
   // --- Send on Enter ---
