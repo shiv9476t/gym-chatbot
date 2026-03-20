@@ -12,7 +12,7 @@ CHROMA_PATH = "chroma_db"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def build_rag_chain():
-    
+    """Set-up of RAG pipeline"""
     # Loads the vectorstore from ChomaDB
     embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
     vectorstore = Chroma(
@@ -33,18 +33,18 @@ def build_rag_chain():
 
     prompt = PromptTemplate(
         input_variables=["context", "question"],
-        template="""You are a helpful customer support assistant for a gym.
-        Use only the information provided below to answer the question.
-        If the answer is not in the provided information, say "I don't have that information — please contact the gym directly."
+        template="""You are a helpful customer support assistant for PeakForm Gym.
+    Answer the member's question using the information provided in the context below.
+    Be friendly, concise, and specific — include prices, times, or details where relevant.
+    If the context genuinely does not contain the answer, say "I don't have that information — please contact us on 01509 334 200 or email hello@peakformgym.co.uk"
 
-        Context:
-        {context}
+    Context:
+    {context}
 
-        Question: {question}
+    Question: {question}
 
-        Answer:"""
+    Answer:"""
     )
-
     def format_docs(docs):
         return "\n\n".join(doc.page_content for doc in docs)
 
@@ -61,5 +61,15 @@ def build_rag_chain():
 if __name__ == "__main__":
     chain = build_rag_chain()
     question = "What are the opening times?"
-    result = chain.invoke(question)
+    result = chain.invoke(question) #execution of RAG pipeline
     print(result)
+    
+    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    vectorstore = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
+    
+    question = "how much is a membership"
+    docs = vectorstore.similarity_search(question, k=4)
+    
+    for i, doc in enumerate(docs):
+        print(f"\n--- Chunk {i+1} ---")
+        print(doc.page_content)
