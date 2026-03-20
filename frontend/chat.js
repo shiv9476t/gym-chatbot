@@ -1,5 +1,5 @@
 (function () {
-  const CHAT_API_URL = "http://localhost:8000/chat";
+  const CHAT_API_URL = "https://your-actual-railway-url.railway.app/chat";
 
   // --- Inject HTML ---
   const container = document.createElement("div");
