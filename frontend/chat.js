@@ -59,16 +59,18 @@
   const messages = document.getElementById("pf-chat-messages");
 
   // --- Toggle ---
-  bubble.addEventListener("click", () => {
-    isOpen = !isOpen;
-    chatWindow.classList.toggle("pf-hidden", !isOpen);
-    if (isOpen) input.focus();
-  });
+    bubble.addEventListener("click", () => {
+      isOpen = !isOpen;
+      chatWindow.classList.toggle("pf-hidden", !isOpen);
+      bubble.style.display = isOpen ? "none" : "flex";
+      if (isOpen) input.focus();
+    });
 
-  closeBtn.addEventListener("click", () => {
-    isOpen = false;
-    chatWindow.classList.add("pf-hidden");
-  });
+    closeBtn.addEventListener("click", () => {
+      isOpen = false;
+      chatWindow.classList.add("pf-hidden");
+      bubble.style.display = "flex";
+    });
 
   // --- Send on Enter ---
   input.addEventListener("keydown", (e) => {
@@ -111,14 +113,18 @@
     }
   }
 
-  function appendMessage(text, sender) {
-    const el = document.createElement("div");
-    el.classList.add("pf-message", `pf-${sender}`);
-    el.textContent = text;
-    messages.appendChild(el);
-    messages.scrollTop = messages.scrollHeight;
-    return el;
-  }
+    function appendMessage(text, sender) {
+        const el = document.createElement("div");
+        el.classList.add("pf-message", `pf-${sender}`);
+        if (sender === "bot") {
+          el.innerHTML = marked.parse(text);
+        } else {
+          el.textContent = text;
+        }
+        messages.appendChild(el);
+        messages.scrollTop = messages.scrollHeight;
+        return el;
+      }
 
   function appendTyping() {
     const el = document.createElement("div");

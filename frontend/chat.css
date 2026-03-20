@@ -195,3 +195,24 @@
   background: #ccc;
   cursor: not-allowed;
 }
+
+.pf-bot p { margin: 0 0 8px 0; }
+.pf-bot p:last-child { margin-bottom: 0; }
+.pf-bot ul, .pf-bot ol { margin: 4px 0; padding-left: 18px; }
+.pf-bot li { margin-bottom: 4px; }
+.pf-bot strong { font-weight: 600; }
+
+@media (max-width: 480px) {
+  #pf-chat-window {
+    width: 100vw;
+    height: 100vh;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+  }
+
+  #pf-chat-bubble {
+    bottom: 16px;
+    right: 16px;
+  }
+
