@@ -109,12 +109,8 @@
       typingEl.remove();
       appendMessage("Sorry, I'm having trouble connecting. Please try again.", "bot");
     } finally {
-      isLoading = false;
-      sendBtn.disabled = false;
-      const isMobile = window.innerWidth <= 480;
-      if (!isMobile) {
-        input.focus();
-      }
+        isLoading = false;
+        sendBtn.disabled = false;
     }
   }
 
