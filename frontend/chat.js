@@ -6,6 +6,7 @@
   container.innerHTML = `
     <div id="pf-chat-bubble" aria-label="Open chat">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"/>
       </svg>
     </div>
@@ -59,18 +60,20 @@
   const messages = document.getElementById("pf-chat-messages");
 
   // --- Toggle ---
-    bubble.addEventListener("click", () => {
-      isOpen = !isOpen;
-      chatWindow.classList.toggle("pf-hidden", !isOpen);
-      bubble.style.display = isOpen ? "none" : "flex";
-      if (isOpen) input.focus();
-    });
+  bubble.addEventListener("click", () => {
+    isOpen = !isOpen;
+    chatWindow.classList.toggle("pf-hidden", !isOpen);
+    bubble.style.display = isOpen ? "none" : "flex";
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) input.focus();
+  });
 
-    closeBtn.addEventListener("click", () => {
-      isOpen = false;
-      chatWindow.classList.add("pf-hidden");
-      bubble.style.display = "flex";
-    });
+  closeBtn.addEventListener("click", () => {
+    isOpen = false;
+    chatWindow.classList.add("pf-hidden");
+    bubble.style.display = "flex";
+    document.body.style.overflow = "";
+  });
 
   // --- Send on Enter ---
   input.addEventListener("keydown", (e) => {
