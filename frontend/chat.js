@@ -65,7 +65,6 @@
     chatWindow.classList.toggle("pf-hidden", !isOpen);
     bubble.style.display = isOpen ? "none" : "flex";
     document.body.style.overflow = isOpen ? "hidden" : "";
-    if (isOpen) input.focus();
   });
 
   closeBtn.addEventListener("click", () => {
