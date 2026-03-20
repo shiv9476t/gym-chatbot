@@ -8,6 +8,9 @@ from pydantic import BaseModel
 from langchain_core.messages import HumanMessage, AIMessage
 from app.rag import build_rag_chain
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 app = FastAPI()
 
 app.add_middleware(
@@ -28,6 +31,12 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+        
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+@app.get("/")
+def serve_frontend():
+    return FileResponse("frontend/demo.html")
 
 @app.get("/health")
 def health():
