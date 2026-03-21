@@ -11,6 +11,8 @@ from app.rag import build_rag_chain
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
+from datetime import datetime
+
 app = FastAPI()
 
 app.add_middleware(
@@ -50,10 +52,12 @@ def chat(request: ChatRequest):
 
     history = sessions[request.session_id]
 
+    today = datetime.now().strftime("%A %d %B %Y")
     # Run the chain
     answer = chain.invoke({
         "question": request.question,
-        "chat_history": history
+        "chat_history": history,
+        "today" : today
     })
 
     # Save this turn to history
