@@ -13,6 +13,9 @@ from fastapi.responses import FileResponse
 
 from datetime import datetime
 
+import sys
+sys.stdout.flush()
+
 app = FastAPI()
 
 app.add_middleware(
@@ -65,3 +68,4 @@ def chat(request: ChatRequest):
     history.append(AIMessage(content=answer))
 
     return ChatResponse(answer=answer)
+
