@@ -2,23 +2,1078 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PeakForm Gym</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PeakForm Gym & Leisure Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/chat.css" />
   <style>
-    body { font-family: sans-serif; margin: 0; background: #f0f0f0; }
-    header { background: #e8232a; color: white; padding: 20px 40px; font-size: 24px; font-weight: 700; }
-    main { padding: 60px 40px; }
-    h1 { color: #1a1a1a; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #e8232a;
+      --red-dark: #c41e24;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --mid: #1e1e1e;
+      --grey: #2a2a2a;
+      --light-grey: #f4f4f4;
+      --white: #ffffff;
+      --text-muted: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--red);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--red-dark) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(232,35,42,0.15) 0%, transparent 50%),
+        linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.8) 100%);
+      z-index: 1;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    .hero-accent {
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(232,35,42,0.2) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 48px 80px;
+      max-width: 800px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(64px, 10vw, 120px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      padding: 16px 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 36px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 48px;
+      right: 48px;
+      z-index: 2;
+      display: flex;
+      gap: 48px;
+    }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-number span { color: var(--red); }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 48px; }
+
+    .section-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: var(--red);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      overflow-x: auto;
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+      color: var(--white);
+    }
+
+    .strip-icon {
+      font-size: 24px;
+    }
+
+    .strip-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .strip-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.3);
+      flex-shrink: 0;
+    }
+
+    /* ── FACILITIES ── */
+    .facilities { background: var(--light-grey); }
+
+    .facilities-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .facility-card {
+      background: var(--white);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .facility-card:hover { transform: translateY(-4px); }
+
+    .facility-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .facility-card:hover::before { transform: scaleX(1); }
+
+    .facility-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .facility-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .facility-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── MEMBERSHIP ── */
+    .membership { background: var(--dark); }
+
+    .membership .section-title { color: var(--white); }
+    .membership .section-tag { color: var(--red); }
+    .membership .section-sub { color: rgba(255,255,255,0.5); }
+
+    .membership-header {
+      margin-bottom: 56px;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .plan-card {
+      background: var(--mid);
+      padding: 40px 32px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+
+    .plan-card.featured {
+      background: var(--red);
+    }
+
+    .plan-card:hover { transform: translateY(-4px); }
+
+    .plan-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-bottom: 20px;
+    }
+
+    .plan-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .plan-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .plan-price sup {
+      font-size: 24px;
+      vertical-align: super;
+    }
+
+    .plan-period {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .plan-features li {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--white);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .plan-btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      transition: all 0.2s;
+      cursor: pointer;
+      background: transparent;
+      width: 100%;
+    }
+
+    .plan-card.featured .plan-btn {
+      background: var(--white);
+      color: var(--red);
+      border-color: var(--white);
+    }
+
+    .plan-btn:hover {
+      background: var(--white);
+      color: var(--red);
+      border-color: var(--white);
+    }
+
+    /* ── CLASSES ── */
+    .classes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .class-card {
+      background: var(--light-grey);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .class-card:hover { transform: translateY(-4px); }
+
+    .class-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--red);
+    }
+
+    .class-type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .class-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .class-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .class-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .class-meta-item {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── OPENING TIMES ── */
+    .times { background: var(--black); }
+    .times .section-title { color: var(--white); }
+    .times .section-tag { color: var(--red); }
+
+    .times-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 56px;
+    }
+
+    .time-card {
+      background: var(--mid);
+      padding: 40px 32px;
+    }
+
+    .time-day {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .time-hours {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    /* ── LOCATION ── */
+    .location {
+      background: var(--light-grey);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+
+    .location-info {
+      padding: 100px 48px;
+    }
+
+    .location-map {
+      background: var(--grey);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .location-map-placeholder {
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .location-map-placeholder p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 12px;
+    }
+
+    .location-details {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .location-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .location-item-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .location-item-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .location-item-text span {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag { animation: fadeUp 0.6s ease forwards; }
+    .hero h1 { animation: fadeUp 0.6s 0.1s ease forwards; opacity: 0; }
+    .hero p { animation: fadeUp 0.6s 0.2s ease forwards; opacity: 0; }
+    .hero-buttons { animation: fadeUp 0.6s 0.3s ease forwards; opacity: 0; }
+    .hero-stats { animation: fadeUp 0.6s 0.4s ease forwards; opacity: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 60px 24px; }
+      .hero-content { padding: 100px 24px 80px; }
+      .hero-stats { display: none; }
+      .facilities-grid { grid-template-columns: 1fr 1fr; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .classes-grid { grid-template-columns: 1fr 1fr; }
+      .times-grid { grid-template-columns: 1fr; }
+      .location { grid-template-columns: 1fr; }
+      .about-strip { padding: 16px 24px; }
+      footer { padding: 32px 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .facilities-grid { grid-template-columns: 1fr; }
+      .classes-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <header>PeakForm</header>
-  <main>
-    <h1>Welcome to PeakForm Gym</h1>
-    <p>See how AI can handle your customer queries 24/7</p>
-  </main>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Peak<span>Form</span></div>
+    <ul class="nav-links">
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#membership">Membership</a></li>
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#times">Opening Times</a></li>
+      <li><a href="#location">Contact</a></li>
+      <li><a href="#membership" class="nav-cta">Join Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-accent"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Loughborough's Premier Gym</div>
+      <h1>Train.<span>Perform.</span></h1>
+      <p>State-of-the-art facilities, 40+ weekly classes, and expert personal trainers — everything you need to reach your peak.</p>
+      <div class="hero-buttons">
+        <a href="#membership" class="btn-primary">View Memberships</a>
+        <a href="#classes" class="btn-outline">See Classes</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">40<span>+</span></div>
+        <div class="stat-label">Weekly Classes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">60<span>+</span></div>
+        <div class="stat-label">Cardio Machines</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">25<span>m</span></div>
+        <div class="stat-label">Pool</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="about-strip">
+    <div class="strip-item"><span class="strip-icon">🏋️</span><span class="strip-text">Free Weights & Machines</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🏊</span><span class="strip-text">25m Swimming Pool</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🧘</span><span class="strip-text">Yoga & Pilates</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🥊</span><span class="strip-text">Boxing Fitness</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🚴</span><span class="strip-text">Spin Studio</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🧖</span><span class="strip-text">Sauna & Steam Room</span></div>
+    <div class="strip-divider"></div>
+    <div class="strip-item"><span class="strip-icon">🅿️</span><span class="strip-text">Free Parking</span></div>
+  </div>
+
+  <!-- FACILITIES -->
+  <section class="facilities" id="facilities">
+    <div class="facilities-header">
+      <div>
+        <div class="section-tag">World Class</div>
+        <h2 class="section-title">Our Facilities</h2>
+        <p class="section-sub">Everything you need under one roof — from the gym floor to the pool to the sauna.</p>
+      </div>
+    </div>
+    <div class="facilities-grid">
+      <div class="facility-card">
+        <div class="facility-icon">🏋️</div>
+        <div class="facility-name">Gym Floor</div>
+        <div class="facility-desc">60+ cardio machines, free weights up to 50kg, resistance machines, functional training rig, and a dedicated stretching zone.</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">🏊</div>
+        <div class="facility-name">Swimming Pool</div>
+        <div class="facility-desc">25-metre, 6-lane pool with daily lane swimming, aqua aerobics, and family swim sessions. Lifeguards on duty at all times.</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">🧖</div>
+        <div class="facility-name">Sauna & Steam</div>
+        <div class="facility-desc">Dedicated sauna and steam room for recovery. Included in Premium membership, available as a supplement for Standard members.</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">🚴</div>
+        <div class="facility-name">Spin Studio</div>
+        <div class="facility-desc">Dedicated cycling studio with 18 bikes. Home to our popular Spin, Morning Cycle, and Spin Express classes.</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">🥗</div>
+        <div class="facility-name">FuelZone Café</div>
+        <div class="facility-desc">On-site café serving protein shakes, smoothies, healthy snacks, and hot drinks. Members receive up to 15% discount.</div>
+      </div>
+      <div class="facility-card">
+        <div class="facility-icon">🚿</div>
+        <div class="facility-name">Changing Rooms</div>
+        <div class="facility-desc">Male, female, and gender-neutral changing rooms with lockers, hot showers, hair dryers, and vanity areas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="membership" id="membership">
+    <div class="membership-header">
+      <div class="section-tag">Find Your Fit</div>
+      <h2 class="section-title" style="color:white">Membership Plans</h2>
+      <p class="section-sub">Flexible options for every lifestyle and budget. No hidden fees.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-badge">Starter</div>
+        <div class="plan-name">Basic</div>
+        <div class="plan-price"><sup>£</sup>19.99</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Off-peak gym access</li>
+          <li>Locker rooms & showers</li>
+          <li>Classes at £3 per session</li>
+          <li>10% FuelZone discount</li>
+        </ul>
+        <button class="plan-btn">Get Started</button>
+      </div>
+      <div class="plan-card featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Standard</div>
+        <div class="plan-price"><sup>£</sup>34.99</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Full gym access — all hours</li>
+          <li>Unlimited group classes</li>
+          <li>Swimming pool access</li>
+          <li>10% FuelZone discount</li>
+        </ul>
+        <button class="plan-btn">Get Started</button>
+      </div>
+      <div class="plan-card">
+        <div class="plan-badge">All Inclusive</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price"><sup>£</sup>49.99</div>
+        <div class="plan-period">per month</div>
+        <ul class="plan-features">
+          <li>Everything in Standard</li>
+          <li>Unlimited sauna & steam</li>
+          <li>1 free PT session/month</li>
+          <li>15% FuelZone discount</li>
+          <li>2 free guest passes/month</li>
+        </ul>
+        <button class="plan-btn">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSES -->
+  <section id="classes">
+    <div class="classes-header">
+      <div>
+        <div class="section-tag">40+ Per Week</div>
+        <h2 class="section-title">Group Classes</h2>
+        <p class="section-sub">Included free with Standard and Premium memberships. Book up to 7 days in advance.</p>
+      </div>
+    </div>
+    <div class="classes-grid">
+      <div class="class-card">
+        <div class="class-type">Cardio / HIIT</div>
+        <div class="class-name">Early HIIT</div>
+        <div class="class-desc">High-intensity interval training to kick-start your day. Short bursts, maximum results.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 45 min</span>
+          <span class="class-meta-item">📍 Studio 1</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Strength</div>
+        <div class="class-name">BodyPump</div>
+        <div class="class-desc">Barbell-based class targeting all major muscle groups. Build lean muscle and tone.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 60 min</span>
+          <span class="class-meta-item">📍 Studio 1</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Mind & Body</div>
+        <div class="class-name">Yoga</div>
+        <div class="class-desc">Hatha, Vinyasa, and Yin sessions for all levels. Improve flexibility, strength, and calm.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 60 min</span>
+          <span class="class-meta-item">📍 Studio 2</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Cycling</div>
+        <div class="class-name">Spin Class</div>
+        <div class="class-desc">Indoor cycling on stationary bikes. From steady endurance rides to sprint intervals.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 45 min</span>
+          <span class="class-meta-item">📍 Spin Studio</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Boxing</div>
+        <div class="class-name">Boxing Fitness</div>
+        <div class="class-desc">Non-contact boxing using bags, pads, and bodyweight drills. No experience required.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 45 min</span>
+          <span class="class-meta-item">📍 Studio 1</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Aqua</div>
+        <div class="class-name">Aqua Aerobics</div>
+        <div class="class-desc">Low-impact water aerobics for all ages. Ideal for joint pain or limited mobility.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 45 min</span>
+          <span class="class-meta-item">📍 Pool</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Dance</div>
+        <div class="class-name">Zumba</div>
+        <div class="class-desc">Dance fitness to upbeat Latin music. Easy choreography — no dance experience needed.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 55 min</span>
+          <span class="class-meta-item">📍 Studio 1</span>
+        </div>
+      </div>
+      <div class="class-card">
+        <div class="class-type">Mind & Body</div>
+        <div class="class-name">Pilates</div>
+        <div class="class-desc">Core stability, posture, and flexibility. Flow and Core variations available weekly.</div>
+        <div class="class-meta">
+          <span class="class-meta-item">⏱ 55 min</span>
+          <span class="class-meta-item">📍 Studio 2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPENING TIMES -->
+  <section class="times" id="times">
+    <div class="section-tag">Always Open</div>
+    <h2 class="section-title" style="color:white">Opening Hours</h2>
+    <div class="times-grid">
+      <div class="time-card">
+        <div class="time-day">Monday — Friday</div>
+        <div class="time-hours">06:00 – 22:00</div>
+      </div>
+      <div class="time-card">
+        <div class="time-day">Saturday</div>
+        <div class="time-hours">07:00 – 20:00</div>
+      </div>
+      <div class="time-card">
+        <div class="time-day">Sunday</div>
+        <div class="time-hours">08:00 – 18:00</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <div class="location" id="location">
+    <div class="location-info">
+      <div class="section-tag">Find Us</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="location-details">
+        <div class="location-item">
+          <div class="location-item-icon">📍</div>
+          <div class="location-item-text">
+            <strong>Address</strong>
+            <span>14 Meridian Way, Loughborough, LE11 3GX</span>
+          </div>
+        </div>
+        <div class="location-item">
+          <div class="location-item-icon">📞</div>
+          <div class="location-item-text">
+            <strong>Phone</strong>
+            <span>01509 334 200</span>
+          </div>
+        </div>
+        <div class="location-item">
+          <div class="location-item-icon">✉️</div>
+          <div class="location-item-text">
+            <strong>Email</strong>
+            <span>hello@peakformgym.co.uk</span>
+          </div>
+        </div>
+        <div class="location-item">
+          <div class="location-item-icon">🅿️</div>
+          <div class="location-item-text">
+            <strong>Parking</strong>
+            <span>Free on-site parking — 120 spaces</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="location-map">
+      <div class="location-map-placeholder">
+        <div style="font-size:48px">📍</div>
+        <p>14 Meridian Way<br>Loughborough</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Peak<span>Form</span></div>
+    <ul class="footer-links">
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#membership">Membership</a></li>
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#location">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 PeakForm Gym & Leisure Centre</div>
+  </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
   <script src="/static/chat.js"></script>
+
 </body>
 </html>
