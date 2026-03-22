@@ -32,7 +32,27 @@ def build_rag_chain():
         openai_api_key=OPENAI_API_KEY
     )
 
-    prompt = ChatPromptTemplate.from_messages([
+    # Rewrites the user's question into a standalone search query
+    # using conversation history as context
+    contextualize_prompt = ChatPromptTemplate.from_messages([
+        ("system", """You are reformulating user questions into standalone search queries for a RAG retrieval system.
+        Today is {today}.
+        Return only the search query, nothing else."""),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{input}")
+    ])
+
+    def rewrite_query(x):
+        rewrite_chain = contextualize_prompt | llm | StrOutputParser()
+        rewritten = rewrite_chain.invoke({
+            "input": x["question"],
+            "chat_history": x["chat_history"],
+            "today": x["today"]
+        })
+        return rewritten
+
+    # Answers the question using retrieved context
+    answer_prompt = ChatPromptTemplate.from_messages([
         ("system", """You are a helpful customer support assistant for PeakForm Gym.
         Today is {today}.
         Answer the member's question using the information provided in the context below.
@@ -43,18 +63,18 @@ def build_rag_chain():
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{question}")
     ])
-    
+
     def format_docs(docs):
         return "\n\n".join(doc.page_content for doc in docs)
 
     chain = (
         {
-            "context": (lambda x: x["question"]) | retriever | format_docs,
+            "context": (lambda x: rewrite_query(x)) | retriever | format_docs,
             "question": lambda x: x["question"],
             "chat_history": lambda x: x["chat_history"],
             "today": lambda x: x["today"]
         }
-        | prompt
+        | answer_prompt
         | llm
         | StrOutputParser()
     )

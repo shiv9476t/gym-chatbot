@@ -13,9 +13,6 @@ from fastapi.responses import FileResponse
 
 from datetime import datetime
 
-import sys
-sys.stdout.flush()
-
 app = FastAPI()
 
 app.add_middleware(
