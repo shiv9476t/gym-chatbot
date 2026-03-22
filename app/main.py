@@ -59,8 +59,8 @@ def chat(request: ChatRequest):
         "chat_history": history,
         "today" : today
     })
-
-    # Save this turn to history
+    
+    # Save turn to history
     history.append(HumanMessage(content=request.question))
     history.append(AIMessage(content=answer))
 
